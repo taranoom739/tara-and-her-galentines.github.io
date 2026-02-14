@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Galentine? 💖</title>
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffe6f0, #fff5f9);
+    text-align: center;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+h1 {
+    color: #ff4d88;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e6005c;
+    color: white;
+}
+
+/* Floating hearts & flowers */
+.floating {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+img.friend-photo {
+    max-width: 250px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+/* Yes/No button effects */
+.glow {
+    box-shadow: 0 0 20px #ff4d88;
+}
+
+.big {
+    transform: scale(1.2);
+}
+
+.small {
+    transform: scale(0.8);
+    opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<!-- Background music -->
+<audio autoplay loop>
+  <source src="janekyu.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<div class="container" id="mainBox">
+    <h1>Will You Be My Valentine? 💘</h1>
+    <button class="yes-btn" onclick="valentineYes()">YES 💕</button>
+    <button class="no-btn" onclick="valentineNo()">NO 🙄</button>
+</div>
+
+<script>
+// Floating hearts & flowers
+function startFloating() {
+    const symbols = ["💖","💘","🌸","🌷","🌹","💐","💕"];
+    setInterval(() => {
+        const floatItem = document.createElement("div");
+        floatItem.classList.add("floating");
+        floatItem.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        floatItem.style.left = Math.random() * 100 + "vw";
+        floatItem.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(floatItem);
+        setTimeout(() => floatItem.remove(), 6000);
+    }, 300);
+}
+
+// VALENTINE BUTTONS
+function valentineNo() {
+    const box = document.getElementById("mainBox");
+    box.innerHTML = `
+        <h1>Wow. Independent queen energy 👑</h1>
+        <p>I respect the confidence.</p>
+        <button class="yes-btn glow" onclick="valentineYes()">Yes 💕</button>
+        <button class="no-btn small" onclick="valentineNoAgain()">Still No 🙄</button>
+    `;
+    setTimeout(() => {
+        const p = box.querySelector("p");
+        if(p) p.innerText = "But still… you’re clicking yes.";
+    }, 2000);
+}
+
+function valentineNoAgain() {
+    const box = document.getElementById("mainBox");
+    box.innerHTML = `
+        <h1>Be serious right now 😭</h1>
+        <p>Just click yes. You know you want to.</p>
+        <button class="yes-btn glow big" onclick="valentineYes()">Yes 💕</button>
+    `;
+}
+
+function valentineYes() {
+    const box = document.getElementById("mainBox");
+    box.innerHTML = `
+        <h1>Who Are You? 💖</h1>
+        <button onclick="showMessage('mono')">MONO</button>
+        <button onclick="showMessage('rami')">RAMI</button>
+        <button onclick="showMessage('tanzin')">TANZIN</button>
+        <button onclick="showMessage('tani')">TANI</button>
+        <button onclick="showMessage('mashi')">MASHI</button>
+    `;
+}
+
+// SHOW CUSTOM MESSAGE + PHOTO
+function showMessage(name) {
+    const photoMap = {
+        mono: "mono.jpg",
+        rami: "rami.jpg",
+        tanzin: "tanzin.jpg",
+        tani: "tani.jpg",
+        mashi: "mashi.jpg"
+    };
+
+    const mainBox = document.getElementById("mainBox");
+    mainBox.innerHTML = `
+        <h1>Happy Galentine's Day! 💖</h1>
+        <p>Happy Valentine’s Day to the one who knows all my stories and still sticks around! Thank you for the endless laughs and for making life brighter. <br><br>
+        And remember this Valentine’s Day, men are optional. YOU are not. Love you to the stars and beyond.✨🌸💘</p>
+        <img src="${photoMap[name]}" alt="${name}" class="friend-photo">
+    `;
+    startFloating();
+}
+</script>
+
+</body>
+</html>
